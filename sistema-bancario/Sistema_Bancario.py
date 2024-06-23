@@ -3,6 +3,7 @@ menu = """
 [d] Depositar
 [s] Sacar
 [e] Extrato
+[c] Cartão de crédito
 [q] Sair
 
 => """
@@ -12,10 +13,12 @@ limite = 2000
 extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
+SALDO_ELEGIVEL = 1000
 
 while True:
 
     opcao = input(menu)
+      
 
     if opcao == "d":
         valor = float(input("Informe o valor do depósito: "))
@@ -58,6 +61,17 @@ while True:
         print("Não foram realizadas movimentações." if not extrato else extrato)
         print(f"\nSaldo: R$ {saldo:.2f}")
         print("==========================================")
+
+    elif opcao == "c":
+        
+        if saldo < SALDO_ELEGIVEL :
+            print("Operação falhou! Para você verificar sua elegibilidade, seu saldo deve ser maior que 1000.")
+        else:
+            if saldo >= SALDO_ELEGIVEL and saldo <= 5000:
+                print("Você está elegível para solicitar apenas um cartão de crédito do tipo platinum")
+            else:
+                print("Você está elegível para solicitar apenas um cartão de crédito do tipo Black")
+           
 
     elif opcao == "q":
         break
