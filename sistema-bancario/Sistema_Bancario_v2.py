@@ -7,6 +7,7 @@ def menu():
     [d]\tDepositar
     [s]\tSacar
     [e]\tExtrato
+    [c]\tCartão de crédito
     [nc]\tNova conta
     [lc]\tListar contas
     [nu]\tNovo usuário
@@ -106,10 +107,29 @@ def listar_contas(contas):
         print(textwrap.dedent(linha))
 
 
+def solicitar_cartao(saldo):
+    inelegivel = False
+    platinum = False
+    black = False
+    SALDO_ELEGIVEL = 1000
+
+    if saldo < SALDO_ELEGIVEL:
+        inelegivel = True
+        print("Operação falhou! Para você verificar sua elegibilidade, seu saldo deve ser maior que 1000.")
+    elif saldo >= SALDO_ELEGIVEL and saldo <= 5000:
+        platinum = True
+        print(
+            "Você está elegível para solicitar apenas um cartão de crédito do tipo platinum")
+    else:
+        black = True
+        print("Você está elegível para solicitar apenas um cartão de crédito do tipo Black")
+
+    return inelegivel, platinum, black
+
+
 def main():
     LIMITE_SAQUES = 3
     AGENCIA = "0001"
-
     saldo = 0
     limite = 500
     extrato = ""
@@ -122,12 +142,10 @@ def main():
 
         if opcao == "d":
             valor = float(input("Informe o valor do depósito: "))
-
             saldo, extrato = depositar(saldo, valor, extrato)
 
         elif opcao == "s":
             valor = float(input("Informe o valor do saque: "))
-
             saldo, extrato = sacar(
                 saldo=saldo,
                 valor=valor,
@@ -146,12 +164,14 @@ def main():
         elif opcao == "nc":
             numero_conta = len(contas) + 1
             conta = criar_conta(AGENCIA, numero_conta, usuarios)
-
             if conta:
                 contas.append(conta)
 
         elif opcao == "lc":
             listar_contas(contas)
+
+        elif opcao == "c":
+            inelegivel, platinum, black = solicitar_cartao(saldo)
 
         elif opcao == "q":
             break
