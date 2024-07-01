@@ -18,7 +18,6 @@ SALDO_ELEGIVEL = 1000
 while True:
 
     opcao = input(menu)
-      
 
     if opcao == "d":
         valor = float(input("Informe o valor do depósito: "))
@@ -63,15 +62,17 @@ while True:
         print("==========================================")
 
     elif opcao == "c":
-        
-        if saldo < SALDO_ELEGIVEL :
-            print("Operação falhou! Para você verificar sua elegibilidade, seu saldo deve ser maior que 1000.")
+
+        if saldo < SALDO_ELEGIVEL:
+            print(
+                "Operação falhou! Para você verificar sua elegibilidade, seu saldo deve ser maior que 1000.")
         else:
             if saldo >= SALDO_ELEGIVEL and saldo <= 5000:
-                print("Você está elegível para solicitar apenas um cartão de crédito do tipo platinum")
+                print(
+                    "Você está elegível para solicitar apenas um cartão de crédito do tipo platinum")
             else:
-                print("Você está elegível para solicitar apenas um cartão de crédito do tipo Black")
-           
+                print(
+                    "Você está elegível para solicitar apenas um cartão de crédito do tipo Black")
 
     elif opcao == "q":
         break
